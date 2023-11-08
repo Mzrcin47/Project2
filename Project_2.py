@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import os
 from PIL import Image
 
@@ -22,3 +23,19 @@ train_images = os.listdir(train_data_dir)
 validation_images = os.listdir(validation_dir)
 test_images = os.listdir(test_data_dir)
 
+'Part 1-Data Augmantation'
+
+train_datagen = ImageDataGenerator(
+    rescale=1.0 / 255.0, 
+    shear_range=0.25,     
+    zoom_range=0.25       
+)
+
+train_generator = train_datagen.flow_from_directory(
+    train_data_dir,         
+    target_size=(100, 100), 
+    batch_size=32,          
+    class_mode='categorical' 
+    )
+
+validation_datagen = ImageDataGenerator(rescale=1.0/255.0)
