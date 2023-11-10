@@ -23,7 +23,7 @@ train_images = os.listdir(train_data_dir)
 validation_images = os.listdir(validation_dir)
 test_images = os.listdir(test_data_dir)
 
-'Part 1-Data Augmantation'
+'data augmantation and imagedatafounddirectory'
 
 train_datagen = ImageDataGenerator(
     rescale=1.0 / 255.0, 
@@ -39,3 +39,22 @@ train_generator = train_datagen.flow_from_directory(
     )
 
 validation_datagen = ImageDataGenerator(rescale=1.0/255.0)
+
+'Step 2'
+
+model1 = models.Sequential()
+model1.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)))
+model1.add(layers.MaxPooling2D((2, 2)))
+model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model1.add(layers.MaxPooling2D((2, 2)))
+model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
+#model1.summary()
+
+model1.add(layers.Flatten())
+model1.add(layers.Dense(64, activation='relu'))
+model1.add(layers.Dense(10))
+
+model1.summary()
+
+
+
