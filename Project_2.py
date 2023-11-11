@@ -56,5 +56,10 @@ model1.add(layers.Dense(10))
 
 model1.summary()
 
+model1.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
 
+history = model1.fit(train_images, epochs=10, 
+                 validation_data=(test_images))
 
