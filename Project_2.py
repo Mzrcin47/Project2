@@ -64,29 +64,71 @@ calidation_gen = train_datagen.flow_from_directory(
 
 'Step 2/3'
 
-model1 = models.Sequential()
-model1.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
-model1.add(layers.MaxPooling2D((2, 2)))
+#model1 = models.Sequential()
+#model1.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
+#model1.add(layers.MaxPooling2D((2, 2)))
 
-model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
-model1.add(layers.MaxPooling2D((2, 2)))
-model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
+#model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
+#model1.add(layers.MaxPooling2D((2, 2)))
+#model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
 #model1.summary()
 
-model1.add(layers.Flatten())
-model1.add(layers.Dense(64, activation='relu'))
-model1.add(layers.Dense(4, activation='softmax'))
+##model1.add(layers.Flatten())
+#model1.add(layers.Dense(64, activation='relu'))
+#model1.add(layers.Dense(4, activation='softmax'))
 
-model1.summary()
+#model1.summary()
 
 
-model1.compile(optimizer='adam',
+#odel1.compile(optimizer='adam',
+  #             loss='categorical_crossentropy',
+   #            metrics=['accuracy'])
+
+#history = model1.fit(train_generator, epochs=10, validation_data=validation_gen)
+
+
+# print(history.history)
+
+
+model2 = models.Sequential()
+model2.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
+model2.add(layers.MaxPooling2D((2, 2)))
+
+model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model2.add(layers.MaxPooling2D((2, 2)))
+model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
+#model1.summary()
+
+model2.add(layers.Flatten())
+model2.add(layers.Dense(64, activation='relu'))
+model2.add(layers.Dense(4, activation='softmax'))
+
+model2.summary()
+
+
+model2.compile(optimizer='adam',
                loss='categorical_crossentropy',
                metrics=['accuracy'])
 
-history = model1.fit(train_generator, epochs=10, validation_data=validation_gen)
+history = model2.fit(train_generator, epochs=5, validation_data=validation_gen)
 
 
 print(history.history)
+
+
+plt.plot(history.history['accuracy'], label='accuracy')
+plt.plot(history.history['val_accuracy'], label='val_accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.ylim([0.5, 1])
+plt.legend(loc='lower right')
+plt.show()
+
+# Evaluate the model on the test set
+test_loss, test_acc = model2.evaluate(train_generator)
+val_loss, val_acc = model2.evaluate(validation_gen)
+print("Test Accuracy:", test_acc)
+print("Validation Accuracy:", val_acc)
+
 
 
