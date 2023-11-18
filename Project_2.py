@@ -87,8 +87,6 @@ model1.compile(optimizer='adam',
 history = model1.fit(train_generator, epochs=10, validation_data=validation_gen)
 
 
-#print(history.history)
+print(history.history)
 
 
-#plt.plot(history.history['accuracy'], label='accuracy')
-#plt.plot(history.history['val_accuracy'], label='val_accuracy')
