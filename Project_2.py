@@ -62,7 +62,7 @@ calidation_gen = train_datagen.flow_from_directory(
     class_mode='categorical' 
     )
 
-'Step 2'
+'Step 2/3'
 
 model1 = models.Sequential()
 model1.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
@@ -81,9 +81,14 @@ model1.summary()
 
 
 model1.compile(optimizer='adam',
-               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+               loss='categorical_crossentropy',
                metrics=['accuracy'])
 
 history = model1.fit(train_generator, epochs=10, validation_data=validation_gen)
 
-'Step 3'
+
+#print(history.history)
+
+
+#plt.plot(history.history['accuracy'], label='accuracy')
+#plt.plot(history.history['val_accuracy'], label='val_accuracy')
