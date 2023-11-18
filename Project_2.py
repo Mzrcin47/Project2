@@ -36,11 +36,11 @@ test_images = os.listdir(test_data_dir)
 
 train_datagen = ImageDataGenerator(
     shear_range=0.25,     
-    zoom_range=0.25       
+    zoom_range=0.25,
 )
 
 train_generator = train_datagen.flow_from_directory(
-    train_data_dir,         
+    train_data_dir,        
     target_size= desired_shape[:2], 
     batch_size=32,          
     class_mode='categorical' 
@@ -97,11 +97,13 @@ model2.add(layers.MaxPooling2D((2, 2)))
 model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model2.add(layers.MaxPooling2D((2, 2)))
 model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
-#model1.summary()
+model2.add(layers.Dropout(0.5))
+
 
 model2.add(layers.Flatten())
 model2.add(layers.Dense(64, activation='relu'))
 model2.add(layers.Dense(4, activation='softmax'))
+
 
 model2.summary()
 
@@ -110,7 +112,7 @@ model2.compile(optimizer='adam',
                loss='categorical_crossentropy',
                metrics=['accuracy'])
 
-history = model2.fit(train_generator, epochs=5, validation_data=validation_gen)
+history = model2.fit(train_generator, epochs=11, validation_data=validation_gen)
 
 
 print(history.history)
