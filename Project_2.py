@@ -89,20 +89,18 @@ calidation_gen = train_datagen.flow_from_directory(
 
 # print(history.history)
 
-
-
 model2 = models.Sequential()
 model2.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
 model2.add(layers.MaxPooling2D((2, 2)))
 
-model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model2.add(layers.Conv2D(32, (3, 3), activation='relu'))
 model2.add(layers.MaxPooling2D((2, 2)))
-model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model2.add(layers.Conv2D(32, (3, 3), activation='relu'))
 model2.add(layers.Dropout(0.5))
 
 
 model2.add(layers.Flatten())
-model2.add(layers.Dense(64, activation='relu'))
+model2.add(layers.Dense(32, activation='relu'))
 model2.add(layers.Dense(4, activation='softmax'))
 
 
@@ -113,15 +111,33 @@ model2.compile(optimizer='adam',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-history = model2.fit(train_generator, epochs=11, validation_data=validation_gen)
+history = model2.fit(train_generator, epochs=20, validation_data=validation_gen)
 
 print(history.history)
 
+plt.subplot(1, 2, 1)
+plt.plot(history.history['accuracy'], label='Training Accuracy')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.title('Training and Validation Accuracy')
+plt.legend()
 
-#test_loss, test_acc = model2.evaluate(train_generator)
-#val_loss, val_acc = model2.evaluate(validation_gen)
-#print("Test Accuracy:", test_acc)
-#print("Validation Accuracy:", val_acc)
+# Plot training loss
+plt.subplot(1, 2, 2)
+plt.plot(history.history['loss'], label='Training Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Training and Validation Loss')
+plt.legend()
+
+plt.show()
+
+test_loss, test_acc = model2.evaluate(train_generator)
+val_loss, val_acc = model2.evaluate(validation_gen)
+print("Test Accuracy:", test_acc)
+print("Validation Accuracy:", val_acc)
 
 
 
