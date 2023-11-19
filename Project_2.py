@@ -5,6 +5,8 @@ import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import BatchNormalization
+
 #from scipy import misc
 
 import os
@@ -85,15 +87,18 @@ validation_gen = validation_datagen.flow_from_directory(
 
 model2 = models.Sequential()
 model2.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
+model2.add(BatchNormalization()) 
 model2.add(layers.MaxPooling2D((2, 2)))
+
 model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model2.add(BatchNormalization()) 
 model2.add(layers.MaxPooling2D((2, 2)))
-model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model2.add(layers.Dropout(0.5))
 
 
 model2.add(layers.Flatten())
 model2.add(layers.Dense(64, activation='relu'))
+model2.add(BatchNormalization()) 
 model2.add(layers.Dense(4, activation='softmax'))
 
 
