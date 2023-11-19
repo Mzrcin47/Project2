@@ -5,6 +5,7 @@ import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LeakyReLU
 #from scipy import misc
 
 import os
@@ -41,7 +42,7 @@ train_datagen = ImageDataGenerator(
 
 train_generator = train_datagen.flow_from_directory(
     train_data_dir,        
-    target_size= desired_shape[:2], 
+    target_size= (100,100), 
     batch_size=32,          
     class_mode='categorical' 
     )
@@ -50,17 +51,10 @@ validation_datagen = ImageDataGenerator(rescale=1.0/255.0)
 
 validation_gen = validation_datagen.flow_from_directory(
     validation_dir,
-    target_size=desired_shape[:2],
+    target_size=(100,100),
     batch_size=32,
     class_mode='categorical'
 )
-
-calidation_gen = train_datagen.flow_from_directory(
-    train_data_dir,         
-    target_size= desired_shape[:2], 
-    batch_size=32,          
-    class_mode='categorical' 
-    )
 
 'Step 2/3'
 
@@ -91,16 +85,23 @@ calidation_gen = train_datagen.flow_from_directory(
 
 model2 = models.Sequential()
 model2.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
+model2.add(LeakyReLU(alpha=0.01))
 model2.add(layers.MaxPooling2D((2, 2)))
 
-model2.add(layers.Conv2D(32, (3, 3), activation='relu'))
+model2.add(layers.Conv2D(64, (3, 3)))
+model2.add(LeakyReLU(alpha=0.01))
 model2.add(layers.MaxPooling2D((2, 2)))
-model2.add(layers.Conv2D(32, (3, 3), activation='relu'))
+
+model2.add(layers.Conv2D(64, (3, 3)))
+model2.add(LeakyReLU(alpha=0.01))
 model2.add(layers.Dropout(0.5))
 
 
 model2.add(layers.Flatten())
-model2.add(layers.Dense(32, activation='relu'))
+model2.add(layers.Dense(64))
+model2.add(LeakyReLU(alpha=0.01))
+model2.add(layers.Dense(64))
+model2.add(LeakyReLU(alpha=0.01))
 model2.add(layers.Dense(4, activation='softmax'))
 
 
@@ -111,7 +112,7 @@ model2.compile(optimizer='adam',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-history = model2.fit(train_generator, epochs=20, validation_data=validation_gen)
+history = model2.fit(train_generator, epochs=15, validation_data=validation_gen)
 
 print(history.history)
 
