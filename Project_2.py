@@ -36,8 +36,8 @@ test_images = os.listdir(test_data_dir)
 
 train_datagen = ImageDataGenerator(
     rescale=1./255,
-    shear_range=0.22,     
-    zoom_range=0.22
+    shear_range=0.2,     
+    zoom_range=0.2
 )
 
 train_generator = train_datagen.flow_from_directory(
@@ -86,7 +86,7 @@ validation_gen = validation_datagen.flow_from_directory(
 model2 = models.Sequential()
 model2.add(layers.Conv2D(64, (3, 3), activation='relu', input_shape=(desired_shape)))
 model2.add(layers.MaxPooling2D((2, 2)))
-model2.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model2.add(layers.MaxPooling2D((2, 2)))
 model2.add(layers.Conv2D(128, (3, 3), activation='relu'))
 model2.add(layers.Dropout(0.5))
@@ -104,7 +104,7 @@ model2.compile(optimizer='adam',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-history = model2.fit(train_generator, epochs=15, validation_data=validation_gen)
+history = model2.fit(train_generator, epochs=10, validation_data=validation_gen)
 
 model2.save('model2.h5')
 
