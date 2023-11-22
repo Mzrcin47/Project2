@@ -36,8 +36,8 @@ test_images = os.listdir(test_data_dir)
 
 train_datagen = ImageDataGenerator(
     rescale=1./255,
-    shear_range=0.25,     
-    zoom_range=0.25
+    shear_range=0.17,     
+    zoom_range=0.17,
 )
 
 train_generator = train_datagen.flow_from_directory(
@@ -104,7 +104,7 @@ model2.compile(optimizer='adam',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-history = model2.fit(train_generator, epochs=15, validation_data=validation_gen)
+history = model2.fit(train_generator, epochs=10, validation_data=validation_gen)
 
 model2.save('model2.h5')
 
