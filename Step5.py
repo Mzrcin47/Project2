@@ -1,19 +1,18 @@
-import os
 import numpy as np
-import pandas as pd
-from tensorflow.keras.preprocessing import image
+import matplotlib.pyplot as plt
 from tensorflow.keras.models import load_model
-
-model_path = 'model2.h5'
-model2 = load_model(model_path)
+from tensorflow.keras.preprocessing import image
 
 
-test_data_dir_Medium='./Data/Test/Small'
-test_data_dir_Large='./Data/Test/Large'
+model = load_model('model2.h5')
 
+def preprocess_image(img_path):
+    img = image.load_img(img_path, target_size=(100, 100))
+    img_array = image.img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array /= 255.0
+    return img, img_array
 
-test_images_Medium = os.listdir(test_data_dir_Medium)
-test_images_Large = os.listdir(test_data_dir_Large)
+testing_images = ["./Data/Test/Medium/Crack__20180419_06_19_09,915.bmp",
+               "./Data/Test/Large/Crack__20180419_13_29_14,846.bmp"]
 
-
-test_images = ['Crack__20180419_06_19_09,915.bmp', 'Crack__20180419_13_29_14,846.bmp']
