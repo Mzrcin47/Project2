@@ -89,7 +89,7 @@ model2.add(layers.MaxPooling2D((2, 2)))
 model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model2.add(layers.MaxPooling2D((2, 2)))
 model2.add(layers.Conv2D(128, (3, 3), activation='relu'))
-model2.add(layers.Dropout(0.5))
+model2.add(layers.Dropout(0.6))
 
 
 model2.add(layers.Flatten())
