@@ -84,9 +84,9 @@ validation_gen = validation_datagen.flow_from_directory(
 # print(history.history)
 
 model2 = models.Sequential()
-model2.add(layers.Conv2D(64, (3, 3), activation='relu', input_shape=(desired_shape)))
+model2.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(desired_shape)))
 model2.add(layers.MaxPooling2D((2, 2)))
-model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model2.add(layers.Conv2D(32, (3, 3), activation='relu'))
 model2.add(layers.MaxPooling2D((2, 2)))
 model2.add(layers.Conv2D(128, (3, 3), activation='relu'))
 model2.add(layers.Dropout(0.6))
