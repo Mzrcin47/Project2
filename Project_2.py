@@ -58,61 +58,63 @@ validation_gen = validation_datagen.flow_from_directory(
 
 'Step 2/3'
 
-#model1 = models.Sequential()
-#model1.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
-#model1.add(layers.MaxPooling2D((2, 2)))
+model1 = models.Sequential()
+model1.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
+model1.add(layers.MaxPooling2D((2, 2)))
 
-#model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
-#model1.add(layers.MaxPooling2D((2, 2)))
-#model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
-#model1.summary()
+model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model1.add(layers.MaxPooling2D((2, 2)))
+model1.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model1.summary()
 
-##model1.add(layers.Flatten())
-#model1.add(layers.Dense(64, activation='relu'))
-#model1.add(layers.Dense(4, activation='softmax'))
+model1.add(layers.Flatten())
+model1.add(layers.Dense(64, activation='relu'))
+model1.add(layers.Dense(4, activation='softmax'))
 
-#model1.summary()
+model1.summary()
 
 
-#model1.compile(optimizer='adam',
-  #             loss='categorical_crossentropy',
-   #            metrics=['accuracy'])
+model1.compile(optimizer='adam',
+               loss='categorical_crossentropy',
+               metrics=['accuracy'])
 
-#history = model1.fit(train_generator, epochs=10, validation_data=validation_gen)
+history = model1.fit(train_generator, epochs=20, validation_data=validation_gen)
 
 
 # print(history.history)
 
-model2 = models.Sequential()
-model2.add(layers.Conv2D(64, (3, 3), activation='relu', input_shape=desired_shape))
-model2.add(layers.MaxPooling2D((2, 2)))
-model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
-model2.add(layers.MaxPooling2D((2, 2)))
-model2.add(layers.Conv2D(128, (3, 3), activation='relu')) 
-model2.add(layers.MaxPooling2D((2, 2)))
-
-model2.add(layers.Conv2D(128, (3, 3), activation='relu'))  
-model2.add(layers.MaxPooling2D((2, 2)))
-
-model2.add(layers.Dropout(0.6))
-
-model2.add(layers.Flatten())
-model2.add(layers.Dense(128, activation='relu'))
-model2.add(layers.Dropout(0.6))  
-model2.add(layers.Dense(4, activation='softmax'))
-
-
-model2.summary()
-
-
-model2.compile(optimizer='adam',
-              loss='categorical_crossentropy',
-              metrics=['accuracy'])
-
-history = model2.fit(train_generator, epochs=10, validation_data=validation_gen)
-
-model2.save('model2.h5')
-
+# =============================================================================
+# model2 = models.Sequential()
+# model2.add(layers.Conv2D(64, (3, 3), activation='relu', input_shape=desired_shape))
+# model2.add(layers.MaxPooling2D((2, 2)))
+# model2.add(layers.Conv2D(64, (3, 3), activation='relu'))
+# model2.add(layers.MaxPooling2D((2, 2)))
+# model2.add(layers.Conv2D(128, (3, 3), activation='relu')) 
+# model2.add(layers.MaxPooling2D((2, 2)))
+# 
+# model2.add(layers.Conv2D(128, (3, 3), activation='relu'))  
+# model2.add(layers.MaxPooling2D((2, 2)))
+# 
+# model2.add(layers.Dropout(0.6))
+# 
+# model2.add(layers.Flatten())
+# model2.add(layers.Dense(128, activation='relu'))
+# model2.add(layers.Dropout(0.6))  
+# model2.add(layers.Dense(4, activation='softmax'))
+# 
+# 
+# model2.summary()
+# 
+# 
+# model2.compile(optimizer='adam',
+#               loss='categorical_crossentropy',
+#               metrics=['accuracy'])
+# 
+# history = model2.fit(train_generator, epochs=10, validation_data=validation_gen)
+# 
+# model2.save('model2.h5')
+# 
+# =============================================================================
 print(history.history)
 
 plt.subplot(1, 2, 1)
@@ -134,8 +136,8 @@ plt.legend()
 
 plt.show()
 
-test_loss, test_acc = model2.evaluate(train_generator)
-val_loss, val_acc = model2.evaluate(validation_gen)
+test_loss, test_acc = model1.evaluate(train_generator)
+val_loss, val_acc = model1.evaluate(validation_gen)
 print("Test Accuracy:", test_acc)
 print("Validation Accuracy:", val_acc)
 
