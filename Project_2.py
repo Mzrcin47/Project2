@@ -16,17 +16,10 @@ from PIL import Image
 desired_shape = (100, 100, 3)
 
 
-#absolute_path= os.path.dirname(__file__)
-
 train_data_dir='./Data/Train'
 test_data_dir='./Data/Test'
 validation_dir='./Data/Validation'
 
-
-#train_data_dir= os.path.join(absolute_path, 'Data', 'Train')
-#test_data_dir=os.path.join(absolute_path, 'Data', 'Test')
-#validation_dir=os.path.join(absolute_path, 'Data', 'Validation')
-#extracted_and_preprocessed_images = extract_and_preprocess_images_from_folder(data_dir)
 
 train_images = os.listdir(train_data_dir)
 validation_images = os.listdir(validation_dir)
@@ -114,6 +107,8 @@ model2.compile(optimizer='adam',
 history = model2.fit(train_generator, epochs=10, validation_data=validation_gen)
 
 model2.save('model2.h5')
+
+'Step 4'
 
 print(history.history)
 
